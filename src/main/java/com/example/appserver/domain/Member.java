@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter
 @RequiredArgsConstructor
+
 public class Member {
     private Long id;
     private String username;
