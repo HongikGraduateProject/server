@@ -16,4 +16,5 @@ public class Member {
     private String job;
     private String goal;
     private String email;
+
 }
