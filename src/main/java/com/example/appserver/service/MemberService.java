@@ -30,7 +30,7 @@ public class MemberService {
      * 중복 회원 검증
      */
     private void validateDuplicateMember(Member member) {
-        memberRepository.findByEmail(member.getEmailAddress())
+        memberRepository.findByEmail(member.getEmail())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 이메일입니다.");
                 });
