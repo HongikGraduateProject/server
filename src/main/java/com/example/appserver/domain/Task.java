@@ -14,4 +14,13 @@ public class Task {
         this.contents = contents;
         this.isChecked = false;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", contents='" + contents + '\'' +
+                ", isChecked=" + isChecked +
+                '}';
+    }
 }
