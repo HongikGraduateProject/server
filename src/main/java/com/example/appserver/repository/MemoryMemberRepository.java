@@ -15,7 +15,7 @@ public class MemoryMemberRepository implements MemberRepository {
     public Member save(Member member) {
         member.setId(sequence++);
         store.put(member.getId(), member);
-        return null;
+        return member;
     }
 
     @Override
@@ -24,9 +24,9 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findByName(String username) {
+    public Optional<Member> findByEmail(String emailAddress) {
         return store.values().stream()
-                .filter(member -> member.getUsername().equals(username))
+                .filter(member -> member.getEmailAddress().equals(emailAddress))
                 .findAny();
     }
 
