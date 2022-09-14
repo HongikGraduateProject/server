@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-
 public class UserProfile {
     private Long id;
     private String username;

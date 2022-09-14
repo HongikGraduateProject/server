@@ -18,14 +18,14 @@ public class UserProfileController {
     private Map<String, UserProfile> userMap;
 
     @PostConstruct
-    public void init(){
+    public void init(){ // 테스트용 데이터
         userMap=new HashMap<String,UserProfile>();
-        userMap.put("1",new UserProfile(1L,"a","b","c",
+        userMap.put("1",new UserProfile(1L,"abc","b12345","01012341234",
                 17,"e","f","g"));
-        userMap.put("2",new UserProfile(2L,"a1","b2","c3",
-                20,"e","f","g"));
-        userMap.put("3",new UserProfile(3L,"abc","bdd","c",
-                25,"e","f","g"));
+        userMap.put("2",new UserProfile(2L,"cde","b25555","01011111111",
+                20,"x","f","g"));
+        userMap.put("3",new UserProfile(3L,"fff","bddggg","01054320000",
+                25,"v","f","g"));
     }
     @GetMapping("/user/{id}")
     public UserProfile getUserProfile(@PathVariable("id") String id){
@@ -43,5 +43,18 @@ public class UserProfileController {
                                 @RequestParam("phoneNumber") String phoneNumber){
         UserProfile userProfile=new UserProfile(Long.parseLong(id),username,phoneNumber);
         userMap.put(id,userProfile);
+    }
+    @PutMapping ("/user/{id}")
+    public void putUserProfile(@PathVariable("id") String id,
+                               @RequestParam("username") String username,
+                               @RequestParam("phoneNumber") String phoneNumber){
+        UserProfile userProfile=userMap.get(id);
+        userProfile.setUsername(username);
+        userProfile.setPhoneNumber(phoneNumber);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public void deleteUserProfile(){
+
     }
 }
