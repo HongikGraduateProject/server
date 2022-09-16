@@ -17,10 +17,9 @@ public class UserProfile {
     private String email;
     private Timer timer;
 
-    public void setTimer(Timer timer) {
-        this.timer = timer;
-    }
+    public UserProfile() {
 
+    }
     public UserProfile(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
@@ -36,6 +35,12 @@ public class UserProfile {
         this.id = id;
         this.username = username;
         this.phoneNumber = phoneNumber;
+    }
+    public void setTimer(Timer timer,boolean status) {
+        this.timer = timer;
+    }
+    public boolean timerStatus(){
+        return timer.isOn();
     }
 
 

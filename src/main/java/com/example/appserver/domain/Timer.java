@@ -12,8 +12,7 @@ public class Timer {
     public Timer() {
     }
 
-    public Timer(boolean isOn, Integer obtainedGold) {
+    public Timer(boolean isOn) {
         this.isOn = isOn;
-        this.obtainedGold = obtainedGold;
     }
 }

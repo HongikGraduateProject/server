@@ -19,8 +19,8 @@ public class MemoryUserProfileRepository implements UserProfileRepository {
     }
 
     @Override
-    public Optional<UserProfile> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public UserProfile findById(Long id) {
+        return store.get(id);
     }
 
     @Override
@@ -33,5 +33,10 @@ public class MemoryUserProfileRepository implements UserProfileRepository {
     @Override
     public List<UserProfile> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public void clearStore() {
+        store.clear();
     }
 }
