@@ -18,8 +18,8 @@ public class UserProfile {
     private Timer timer;
 
     public UserProfile() {
-
     }
+
     public UserProfile(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
@@ -29,6 +29,7 @@ public class UserProfile {
         this.job = job;
         this.goal = goal;
         this.email = email;
+        timer=new Timer();
     }
 
     public UserProfile(Long id, String username, String phoneNumber){
@@ -36,12 +37,12 @@ public class UserProfile {
         this.username = username;
         this.phoneNumber = phoneNumber;
     }
-    public void setTimer(Timer timer,boolean status) {
-        this.timer = timer;
-    }
+
     public boolean timerStatus(){
-        return timer.isOn();
+        return timer.getStatus();
     }
 
+    public void setGold(int gold){
 
+    }
 }

@@ -28,5 +28,6 @@ class TimerControllerTest {
                 "010-2222-2222",25,"worker","이직","bob@gmail.com");
         user1.setTimer(new Timer(true));
         log.info("timerStatus={}",user1.timerStatus());
+
     }
 }
