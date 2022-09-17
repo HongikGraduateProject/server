@@ -16,6 +16,7 @@ public class UserProfile {
     private String goal;
     private String email;
     private Timer timer;
+    private int gold;
 
     public UserProfile() {
     }
@@ -30,6 +31,7 @@ public class UserProfile {
         this.goal = goal;
         this.email = email;
         timer=new Timer();
+        gold=0;
     }
 
     public UserProfile(Long id, String username, String phoneNumber){
@@ -42,7 +44,4 @@ public class UserProfile {
         return timer.getStatus();
     }
 
-    public void setGold(int gold){
-
-    }
 }

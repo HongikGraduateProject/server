@@ -12,13 +12,15 @@ import java.util.Optional;
 public class TimerController {
     private UserProfileRepository UserProfileRepository;
     @PutMapping("/timer/on/{id}") // 유저의 타이머 on
-    public void timerOn(@PathVariable("id") Long id,@RequestParam("isOn") boolean isOn) {
+    public void timerOn(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         UserProfile user=UserProfileRepository.findById(id);
-        user.setTimer(new Timer(isOn));
+        user.getTimer().timerOn();
+
     }
     @PutMapping("/timer/off/{id}") // 유저의 타이머 off
-    public void timerOff(@PathVariable("id") Long id,@RequestParam("isOn") boolean isOn) {
+    public void timerOff(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         UserProfile user=UserProfileRepository.findById(id);
-        user.setTimer(new Timer(isOn));
+        int gold=user.getTimer().timerOff();
+        user.setGold(gold);
     }
 }
