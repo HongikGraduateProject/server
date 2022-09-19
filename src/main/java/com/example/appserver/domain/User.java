@@ -1,27 +1,33 @@
 package com.example.appserver.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
-public class UserProfile {
-    private Long id;
+public class User {
+    private int id;
+
     private String username;
     private String password;
+    private String nickName;
+    private String email;
     private String phoneNumber;
+
     private int age;
     private String job;
     private String goal;
-    private String email;
+
     private Timer timer;
     private int gold;
 
-    public UserProfile() {
+    private LocalDateTime createDate; // 가입 날짜
+
+    public User() {
     }
 
-    public UserProfile(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
+    public User(int id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -34,7 +40,7 @@ public class UserProfile {
         gold=0;
     }
 
-    public UserProfile(Long id, String username, String phoneNumber){
+    public User(int id, String username, String phoneNumber){
         this.id = id;
         this.username = username;
         this.phoneNumber = phoneNumber;
