@@ -21,15 +21,32 @@ public class TaskRepository {
      */
     public void save(Long memberId, String contents) {
         Task task = new Task(memberId, contents);
-        store.put(sequence++, task);
+        task.setTaskId(sequence++);
+        store.put(task.getTaskId(), task);
     }
 
     /**
-     * 각 회원이 쓴 투두리스트 출력
+     * 수정
      */
-    public List<Task> findAll(Long memberId) {
-        Stream<Task> taskStream = store.values().stream().filter(task -> task.getId().equals(memberId));
-        List<Task> list = taskStream.collect(Collectors.toList());
-        return list;
+    public void edit(Long taskId, String updateContents) {
+        Task findTask = findById(taskId);
+        findTask.setContents(updateContents);
+    }
+
+    /**
+     * 회원이 쓴 투두리스트 전체 조회
+     */
+    public List<Task> findUserTaskAll(Long memberId) {
+        Stream<Task> taskStream = store.values().stream().filter(task -> task.getUserId().equals(memberId));
+        return taskStream.collect(Collectors.toList());
+    }
+
+    public Task findById(Long taskId) {
+        return store.get(taskId);
+    }
+
+    public void deleteById(Long taskId) {
+        //예외처리 나중에 할예쩡
+        store.remove(taskId);
     }
 }

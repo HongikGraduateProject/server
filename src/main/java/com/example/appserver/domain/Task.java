@@ -5,22 +5,14 @@ import lombok.Setter;
 
 @Getter @Setter
 public class Task {
-    private Long id;
+    private Long taskId;
+    private Long userId;
     private String contents;
     private Boolean isChecked;
 
-    public Task(Long id, String contents) {
-        this.id = id;
+    public Task(Long userId, String contents) {
+        this.userId = userId;
         this.contents = contents;
         this.isChecked = false;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", contents='" + contents + '\'' +
-                ", isChecked=" + isChecked +
-                '}';
     }
 }
