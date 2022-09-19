@@ -1,37 +1,42 @@
 package com.example.appserver.controller;
 
 import com.example.appserver.domain.User;
-import com.example.appserver.repository.MemoryUserRepository;
 import com.example.appserver.repository.UserRepository;
+import com.example.appserver.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
-class TimerControllerTest {
-    UserRepository userRepository =new MemoryUserRepository();
+@SpringBootTest
+class UserControllerTest {
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserService userService;
+
     @AfterEach
     void afterEach(){
         userRepository.clearStore();
     }
 
     @Test
-    void timerOn(){
+    void test(){
         User user1=new User(1,"alice","12345",
                 "010-1111-1111",20,"student","합격","alice@gmail.com");
         User user2=new User(2,"bob","abc",
                 "010-2222-2222",25,"worker","이직","bob@gmail.com");
+        userRepository.save(user1);
 
-        log.info("timerId={}",user1.getTimer().getId());
-        user1.getTimer().timerOn();
-        user1.getTimer().setObtainedGold(500);
-        log.info("timerStatus={} gold={}",user1.timerStatus(),user1.getTimer().getObtainedGold());
-        int gold=user1.getTimer().timerOff();
+        User findUser=userRepository.findById(user1.getId());
+        assertThat(findUser).isEqualTo(user1);
 
-        user1.setGold(gold);
-        log.info("timerStatus={} gold={}",user1.timerStatus(),user1.getGold());
-
+        userService.findUser(user1.getId());
+        assertThat(findUser).isEqualTo(user1);
     }
+
 }

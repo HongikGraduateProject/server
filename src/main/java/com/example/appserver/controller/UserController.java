@@ -2,6 +2,9 @@ package com.example.appserver.controller;
 
 import com.example.appserver.domain.User;
 import com.example.appserver.repository.UserRepository;
+import com.example.appserver.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
+    private UserService userService;
     private UserRepository userRepository;
 
     private Map<String, User> userMap;
@@ -24,7 +29,7 @@ public class UserController {
                 17,"e","f","g"));
         userMap.put("2",new User(2,"cde","b25555","01011111111",
                 20,"x","f","g"));
-        userMap.put("3",new User(3,"fff","bddggg","01054320000",
+        userMap.put("3",new User(3,"fff","bdd999","01054320000",
                 25,"v","f","g"));
     }
     @GetMapping("/user/{id}")
@@ -57,4 +62,5 @@ public class UserController {
     public void deleteUser(){
 
     }
+
 }

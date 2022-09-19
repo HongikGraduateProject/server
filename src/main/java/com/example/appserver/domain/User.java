@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
 
+    private String role; // 일반 유저, 관리자 구분
     private String username;
     private String password;
     private String nickName;

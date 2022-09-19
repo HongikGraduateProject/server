@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserProfileService {
+public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserProfileService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -37,8 +37,11 @@ public class UserProfileService {
     /**
      * 전체 회원 조회
      */
-    private List<User> findMembers() {
+    public List<User> findMembers() {
         return userRepository.findAll();
     }
 
+    public User findUser(Integer id){
+        return userRepository.findById(id);
+    }
 }

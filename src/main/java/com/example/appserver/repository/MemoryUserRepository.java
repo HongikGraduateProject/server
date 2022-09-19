@@ -19,7 +19,7 @@ public class MemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Integer id) {
         return store.get(id);
     }
 
