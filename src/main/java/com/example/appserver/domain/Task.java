@@ -10,9 +10,9 @@ public class Task {
     private String contents;
     private Boolean isChecked;
 
-    public Task(Long userId, String contents) {
+    public Task(Long userId, String contents, Boolean isChecked) {
         this.userId = userId;
         this.contents = contents;
-        this.isChecked = false;
+        this.isChecked = isChecked;
     }
 }

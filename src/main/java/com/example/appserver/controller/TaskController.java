@@ -34,19 +34,19 @@ public class TaskController {
 
     //투두 등록
     @PostMapping("/task/{userId}")
-    public void saveTask(@PathVariable Long userId, @RequestBody String contents) {
-        taskRepository.save(userId, contents);
+    public void saveTask(@PathVariable Long userId, @RequestBody Task taskData) {
+        taskRepository.save(userId, taskData.getContents(), taskData.getIsChecked());
     }
 
     //투두 수정
     @PatchMapping("/task/{userId}/{taskId}")
-    public void editTask(@PathVariable Long taskId, @RequestBody String contents) {
-        taskRepository.edit(taskId, contents);
+    public void editTask(@PathVariable Long taskId, @RequestBody Task taskData) {
+        taskRepository.edit(taskId, taskData.getContents(), taskData.getIsChecked());
     }
 
-    //투두 삭제
+    //투두 삭제 (예외처리 꼭 추가필요)
     @DeleteMapping("/task/{userId}/{taskId}")
-    public void deleteTask(@PathVariable Long taskId, @RequestBody String contents) {
+    public void deleteTask(@PathVariable Long taskId) {
         taskRepository.deleteById(taskId);
     }
 }

@@ -19,8 +19,8 @@ public class TaskRepository {
     /**
      * 저장
      */
-    public void save(Long memberId, String contents) {
-        Task task = new Task(memberId, contents);
+    public void save(Long memberId, String contents, Boolean isChecked) {
+        Task task = new Task(memberId, contents, isChecked);
         task.setTaskId(sequence++);
         store.put(task.getTaskId(), task);
     }
@@ -28,9 +28,10 @@ public class TaskRepository {
     /**
      * 수정
      */
-    public void edit(Long taskId, String updateContents) {
+    public void edit(Long taskId, String updateContents, Boolean isChecked) {
         Task findTask = findById(taskId);
         findTask.setContents(updateContents);
+        findTask.setIsChecked(isChecked);
     }
 
     /**
