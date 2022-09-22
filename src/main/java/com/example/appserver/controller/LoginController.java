@@ -22,7 +22,7 @@ public class LoginController {
      * 틀만 구현함!!!
      * 쿠키 등등 여러가지 로직들 추가해야함!!!!!!!!
      */
-    @PostMapping
+    @PostMapping("/login")
     public String login(@Valid @RequestBody LoginForm loginForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "fail";
