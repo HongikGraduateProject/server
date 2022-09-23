@@ -13,7 +13,7 @@ public class MemoryUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        user.setId(sequence++);
+//        user.setId(sequence++);
         store.put(user.getId(), user);
         return user;
     }
@@ -26,7 +26,7 @@ public class MemoryUserRepository implements UserRepository {
     @Override
     public Optional<User> findByEmail(String emailAddress) {
         return store.values().stream()
-                .filter(userProfile -> userProfile.getEmail().equals(emailAddress))
+                .filter(user -> user.getEmail().equals(emailAddress))
                 .findAny();
     }
 

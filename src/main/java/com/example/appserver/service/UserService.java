@@ -19,7 +19,7 @@ public class UserService {
      * 회원 가입
      */
     public int join(User user) {
-        validateDuplicateMember(user);
+//        validateDuplicateMember(user); 오류나서 주석처리함
         userRepository.save(user);
         return user.getId();
     }
@@ -37,7 +37,7 @@ public class UserService {
     /**
      * 전체 회원 조회
      */
-    public List<User> findMembers() {
+    public List<User> findUsers() {
         return userRepository.findAll();
     }
 

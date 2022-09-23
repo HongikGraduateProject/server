@@ -1,21 +1,31 @@
 package com.example.appserver.controller;
 
 import com.example.appserver.domain.User;
-import com.example.appserver.repository.UserRepository;
 import com.example.appserver.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 public class adminController {
 
-    private UserService userService;
-    private UserRepository userRepository;
+    private final UserService userService;
 
-    @GetMapping("/user/admin")
-    public String adminPage(){
-        return "test2";
+//    @GetMapping("user/admin")
+//    public String adminPage(){
+//        return "user/adminPage";
+//    }
+
+    @GetMapping("/users")
+    public String list(Model model) {
+        List<User> users = userService.findUsers();
+        model.addAttribute("users", users);
+        return "user/userList";
     }
 }
