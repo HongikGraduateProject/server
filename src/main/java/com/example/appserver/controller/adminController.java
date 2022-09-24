@@ -1,7 +1,7 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.domain.User;
-import com.example.appserver.service.UserService;
+import com.example.appserver.user.User;
+import com.example.appserver.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,5 @@
-package com.example.appserver.repository;
+package com.example.appserver.user;
 
-import com.example.appserver.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +12,6 @@ public interface UserRepository {
 //    User findByUsername(String username); // 회원 이름으로 찾기
     Optional<User> findByEmail(String emailAddress); // NULL을 반환할 때, Optional로 감싸서 반환함. java8의 기능.
     List<User> findAll(); // 모든 회원 리스트 반환
-
+    void deleteUser(Integer id);
     void clearStore();
 }

@@ -1,8 +1,8 @@
 package com.example.appserver.controller;
 
 import com.example.appserver.domain.LoginForm;
-import com.example.appserver.domain.User;
 import com.example.appserver.service.LoginService;
+import com.example.appserver.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;

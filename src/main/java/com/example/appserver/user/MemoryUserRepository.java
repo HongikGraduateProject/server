@@ -1,6 +1,5 @@
-package com.example.appserver.repository;
+package com.example.appserver.user;
 
-import com.example.appserver.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -33,6 +32,11 @@ public class MemoryUserRepository implements UserRepository {
     @Override
     public List<User> findAll() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        store.remove(id);
     }
 
     @Override

@@ -1,7 +1,5 @@
-package com.example.appserver.service;
+package com.example.appserver.user;
 
-import com.example.appserver.domain.User;
-import com.example.appserver.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,5 +41,9 @@ public class UserService {
 
     public User findUser(Integer id){
         return userRepository.findById(id);
+    }
+
+    public void removeUser(Integer id){
+        userRepository.deleteUser(id);
     }
 }

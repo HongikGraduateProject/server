@@ -1,16 +1,8 @@
-package com.example.appserver.controller;
+package com.example.appserver.user;
 
-import com.example.appserver.domain.User;
-import com.example.appserver.repository.UserRepository;
-import com.example.appserver.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,18 +41,18 @@ public class UserController {
         User user =new User(Integer.parseInt(id),username,phoneNumber);
         userService.join(user);
     }
-    @PutMapping ("/user/{id}") // 회원정보 수정
+    @PatchMapping ("/user/{id}") // 회원정보 수정
     public void putUser(@PathVariable("id") String id,
                                @RequestParam("username") String username,
                                @RequestParam("phoneNumber") String phoneNumber){
-        User user =userMap.get(id);
+        User user =userService.findUser(Integer.parseInt(id));
         user.setUsername(username);
         user.setPhoneNumber(phoneNumber);
     }
 
-    @DeleteMapping("/user")
-    public void deleteUser(){
-
+    @DeleteMapping("/user/{id}")
+    public void deleteUser(@PathVariable("id") String id){
+        userService.removeUser(Integer.parseInt(id));
     }
 
 //    참고용

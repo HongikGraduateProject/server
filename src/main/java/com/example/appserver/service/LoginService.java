@@ -1,7 +1,7 @@
 package com.example.appserver.service;
 
-import com.example.appserver.domain.User;
-import com.example.appserver.repository.UserRepository;
+import com.example.appserver.user.User;
+import com.example.appserver.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

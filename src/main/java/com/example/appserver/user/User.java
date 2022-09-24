@@ -1,5 +1,6 @@
-package com.example.appserver.domain;
+package com.example.appserver.user;
 
+import com.example.appserver.timer.Timer;
 import lombok.Getter;
 import lombok.Setter;
 

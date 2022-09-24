@@ -1,4 +1,4 @@
-package com.example.appserver.domain;
+package com.example.appserver.timer;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter @Setter
 public class Timer {
 
-    private final String id;
+    private final String id; // 타이머 고유 id
     private boolean status; // 타이머 작동 여부
     private Integer obtainedGold; // 획득 재화
 
