@@ -29,6 +29,24 @@ public class User {
     public User() {
     }
 
+    public User(int id, String username, String password, String nickName, String email, String phoneNumber,
+                int age, String job, String goal, Timer timer,
+                int gold, String role, LocalDateTime createDate) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickName = nickName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.job = job;
+        this.goal = goal;
+        timer=new Timer();
+        gold=0;
+        this.role = role;
+        this.createDate = createDate;
+    }
+
     public User(int id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
@@ -46,6 +64,8 @@ public class User {
         this.id = id;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        timer=new Timer();
+        gold=0;
     }
 
     public boolean timerStatus(){
