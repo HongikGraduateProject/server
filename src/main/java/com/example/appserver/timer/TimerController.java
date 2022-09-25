@@ -38,6 +38,6 @@ public class TimerController {
     @GetMapping("/timer/{id}") // 유저의 타이머 정보 조회
     public String getTimerInfo(@PathVariable("id") Integer id){
         User user=userService.findUser(id);
-        return user.getTimer().getId();
+        return user.getTimer().toString();
     }
 }

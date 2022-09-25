@@ -34,6 +34,9 @@ public class UserController {
         return userService.findUsers();
     }
 
+//    http://localhost:8080/user/1?username=kim&phoneNumber=01011111111
+//    http://localhost:8080/user/2?username=lee&phoneNumber=01022222222
+//    http://localhost:8080/user/3?username=park&phoneNumber=01033333333
     @PostMapping ("/user/{id}")
     public void postUser(@PathVariable("id") String id,
                                 @RequestParam("username") String username,

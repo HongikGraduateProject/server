@@ -3,6 +3,7 @@ package com.example.appserver.timer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Random;
 import java.util.UUID;
 
 @Getter @Setter
@@ -21,9 +22,15 @@ public class Timer {
     }
     public int timerOff(){
         status=false;
-        return obtainedGold;
+        Random obtainedGold=new Random();
+        return obtainedGold.nextInt(1000); // 일단은 서버 자체의 랜덤 클래스 사용
     }
     public boolean getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return id+", "+status;
     }
 }

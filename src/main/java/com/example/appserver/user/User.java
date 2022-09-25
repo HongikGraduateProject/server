@@ -72,4 +72,7 @@ public class User {
         return timer.getStatus();
     }
 
+    public void setGold(int gold) {
+        this.gold += gold;
+    }
 }
