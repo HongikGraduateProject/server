@@ -7,25 +7,25 @@ import java.util.*;
 @Repository
 public class MemoryUserRepository implements UserRepository {
 
-    private static final Map<Integer, User> store = new HashMap<>();
-    private static int sequence = 0;
+    private static final Map<Long, User> store = new HashMap<>();
+    private static Long sequence = 0L;
 
     @Override
     public User save(User user) {
-//        user.setId(sequence++);
+        user.setId(++sequence);
         store.put(user.getId(), user);
         return user;
     }
 
     @Override
-    public User findById(Integer id) {
+    public User findById(Long id) {
         return store.get(id);
     }
 
     @Override
     public Optional<User> findByEmail(String emailAddress) {
-        return store.values().stream()
-                .filter(user -> user.getEmail().equals(emailAddress))
+        return findAll().stream()
+                .filter(u -> u.getEmail().equals(emailAddress))
                 .findAny();
     }
 
@@ -35,7 +35,7 @@ public class MemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(Long id) {
         store.remove(id);
     }
 

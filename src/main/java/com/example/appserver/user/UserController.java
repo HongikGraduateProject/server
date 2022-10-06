@@ -1,11 +1,18 @@
 package com.example.appserver.user;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -25,44 +32,60 @@ public class UserController {
 //    }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable("id") String id){
-        return userService.findUser(Integer.parseInt(id));
+    public User getUser(@PathVariable("id") Long id) {
+        return userService.findUser(id);
     }
 
     @GetMapping("/user/all")
-    public List<User> getUserList(){
+    public List<User> getUserList() {
         return userService.findUsers();
     }
 
-//    http://localhost:8080/user/1?username=kim&phoneNumber=01011111111
+    //    http://localhost:8080/user/1?username=kim&phoneNumber=01011111111
 //    http://localhost:8080/user/2?username=lee&phoneNumber=01022222222
 //    http://localhost:8080/user/3?username=park&phoneNumber=01033333333
-    @PostMapping ("/user/{id}")
-    public void postUser(@PathVariable("id") String id,
-                                @RequestParam("username") String username,
-                                @RequestParam("phoneNumber") String phoneNumber){
-        User user =new User(Integer.parseInt(id),username,phoneNumber);
-        userService.join(user);
-    }
-    @PatchMapping ("/user/{id}") // 회원정보 수정
-    public void putUser(@PathVariable("id") String id,
-                               @RequestParam("username") String username,
-                               @RequestParam("phoneNumber") String phoneNumber){
-        User user =userService.findUser(Integer.parseInt(id));
+//    가입하기 전까지 회원 id 알 수 없어서 id로 회원가입 불가함
+//    @PostMapping("/user/{id}")
+//    public void postUser(@PathVariable("id") String id,
+//                         @RequestParam("username") String username,
+//                         @RequestParam("phoneNumber") String phoneNumber) {
+//        User user = new User(Integer.parseInt(id), username, phoneNumber);
+//        userService.join(user);
+//    }
+
+    @PatchMapping("/user/{id}") // 회원정보 수정
+    public void putUser(@PathVariable("id") Long id,
+                        @RequestParam("username") String username,
+                        @RequestParam("phoneNumber") String phoneNumber) {
+        User user = userService.findUser(id);
         user.setUsername(username);
         user.setPhoneNumber(phoneNumber);
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable("id") String id){
-        userService.removeUser(Integer.parseInt(id));
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.removeUser(id);
     }
 
-//    참고용
+    /**
+     * 회원가입
+     */
+    @PostMapping("/join")
+    public User joinUser(@Valid @RequestBody User user, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            log.info("error");
+            return null;
+        }
+        log.info("success : user id ={} user email = {}", user.getId(), user.getEmail());
+        return userService.join(user);
+    }
+
+    //    참고용
 //    @ResponseBody
 //    @PostMapping("/request-body-json-v5")
 //    public Hellodata requestBodyJsonV5(@RequestBody Hellodata data){
 //        log.info("username={}, age={}", data.getUsername(), data.getAge());
 //        return data;
 //    }
+
 }

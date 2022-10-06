@@ -1,25 +1,32 @@
 package com.example.appserver.user;
 
 import com.example.appserver.timer.Timer;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Getter @Setter
+@Data
 public class User {
-    private int id;
 
+    private Long id;
+
+    @NotEmpty
     private String username;
-    private String password;
-    private String nickName;
+    @NotEmpty
     private String email;
-    private String phoneNumber;
+    @NotEmpty
+    private String password;
 
+    private String nickName;
+
+    private String phoneNumber;
     private int age;
     private String job;
     private String goal;
-
     private Timer timer;
     private int gold;
 
@@ -29,7 +36,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String username, String password, String nickName, String email, String phoneNumber,
+    public User(Long id, String username, String password, String nickName, String email, String phoneNumber,
                 int age, String job, String goal, Timer timer,
                 int gold, String role, LocalDateTime createDate) {
         this.id = id;
@@ -47,7 +54,7 @@ public class User {
         this.createDate = createDate;
     }
 
-    public User(int id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
+    public User(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -60,7 +67,7 @@ public class User {
         gold=0;
     }
 
-    public User(int id, String username, String phoneNumber){
+    public User(Long id, String username, String phoneNumber){
         this.id = id;
         this.username = username;
         this.phoneNumber = phoneNumber;

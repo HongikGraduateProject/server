@@ -27,7 +27,6 @@ public class TaskController {
     }
 
     //유저가 쓴 전체 투두 조회
-    //이걸 시간별로 나중에 해야할듯.....
     @GetMapping("/{userId}")
     public List<Task> findUserTask(@PathVariable Long userId) {
         return taskRepository.findUserTaskAll(userId);
