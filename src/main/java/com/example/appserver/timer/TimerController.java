@@ -17,7 +17,7 @@ public class TimerController {
     private final UserService userService;
 
     @GetMapping("/timer/on/{id}") // 유저의 타이머 on
-    public void timerOn(@PathVariable("id") Integer id,@RequestParam("status") boolean status) {
+    public void timerOn(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         if(status==false) {
             User user=userService.findUser(id);
             user.getTimer().timerOn();
@@ -26,7 +26,7 @@ public class TimerController {
         }
     }
     @GetMapping("/timer/off/{id}") // 유저의 타이머 off
-    public void timerOff(@PathVariable("id") Integer id,@RequestParam("status") boolean status) {
+    public void timerOff(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         if(status==true) {
             User user=userService.findUser(id);
             int gold = user.getTimer().timerOff();
@@ -36,7 +36,7 @@ public class TimerController {
         }
     }
     @GetMapping("/timer/{id}") // 유저의 타이머 정보 조회
-    public String getTimerInfo(@PathVariable("id") Integer id){
+    public String getTimerInfo(@PathVariable("id") Long id){
         User user=userService.findUser(id);
         return user.getTimer().toString();
     }
