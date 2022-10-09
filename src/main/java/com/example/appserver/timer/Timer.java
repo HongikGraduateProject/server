@@ -3,12 +3,18 @@ package com.example.appserver.timer;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Random;
 import java.util.UUID;
 
 @Getter @Setter
+@Entity
 public class Timer {
 
+    @Id
+    @Column(name="TIMER_ID")
     private final String id; // 타이머 고유 id
     private boolean status; // 타이머 작동 여부
     private Integer obtainedGold; // 획득 재화

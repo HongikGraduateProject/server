@@ -1,8 +1,8 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.user.MemoryUserRepository;
-import com.example.appserver.user.User;
-import com.example.appserver.user.UserRepository;
+import com.example.appserver.user.MemoryMemberRepository;
+import com.example.appserver.user.Member;
+import com.example.appserver.user.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -11,17 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @Slf4j
 class TimerControllerTest {
-    UserRepository userRepository =new MemoryUserRepository();
-    @AfterEach
-    void afterEach(){
-        userRepository.clearStore();
-    }
+    MemberRepository userRepository =new MemoryMemberRepository();
+//    @AfterEach
+//    void afterEach(){
+//        userRepository.clearStore();
+//    }
 
     @Test
     void timerOn(){
-        User user1=new User(1L,"alice","12345",
+        Member user1=new Member(1L,"alice","12345",
                 "010-1111-1111",20,"student","합격","alice@gmail.com");
-        User user2=new User(2L,"bob","abc",
+        Member user2=new Member(2L,"bob","abc",
                 "010-2222-2222",25,"worker","이직","bob@gmail.com");
 
         log.info("timerId={}",user1.getTimer().getId());

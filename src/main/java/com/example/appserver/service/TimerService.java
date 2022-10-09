@@ -1,7 +1,7 @@
 package com.example.appserver.service;
 
-import com.example.appserver.user.User;
+import com.example.appserver.user.Member;
 
 public interface TimerService {
-    User saveGold(int gold);
+    Member saveGold(int gold);
 }

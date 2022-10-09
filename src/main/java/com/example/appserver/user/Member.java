@@ -1,16 +1,21 @@
 package com.example.appserver.user;
 
+import com.example.appserver.domain.Task;
 import com.example.appserver.timer.Timer;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
-public class User {
+@Entity
+@Getter @Setter
+public class Member {
 
+    @Id @GeneratedValue
+    @Column(name="MEMBER_ID")
     private Long id;
 
     private String username;
@@ -23,18 +28,25 @@ public class User {
     private int age;
     private String job;
     private String goal;
+
+    @OneToOne
+    @JoinColumn(name="TIMER_ID")
     private Timer timer;
     private int gold;
+
+    @OneToMany
+    @JoinColumn(name="MEMBER_ID")
+    private List <Task> tasks = new ArrayList<Task>();
 
     private String role; // 일반 유저, 관리자 구분
     private LocalDateTime createDate; // 가입 날짜
 
-    public User() {
+    public Member() {
     }
 
-    public User(Long id, String username, String password, String nickName, String email, String phoneNumber,
-                int age, String job, String goal, Timer timer,
-                int gold, String role, LocalDateTime createDate) {
+    public Member(Long id, String username, String password, String nickName, String email, String phoneNumber,
+                  int age, String job, String goal, Timer timer,
+                  int gold, String role, LocalDateTime createDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -50,7 +62,7 @@ public class User {
         this.createDate = createDate;
     }
 
-    public User(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
+    public Member(Long id, String username, String password, String phoneNumber, int age, String job, String goal, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -63,7 +75,7 @@ public class User {
         gold=0;
     }
 
-    public User(Long id, String username, String phoneNumber){
+    public Member(Long id, String username, String phoneNumber){
         this.id = id;
         this.username = username;
         this.phoneNumber = phoneNumber;

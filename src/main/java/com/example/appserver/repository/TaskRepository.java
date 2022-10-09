@@ -1,53 +1,62 @@
 package com.example.appserver.repository;
 
+import antlr.StringUtils;
 import com.example.appserver.domain.Task;
+import com.example.appserver.user.Member;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.*;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
 public class TaskRepository {
 
-    private static final Map<Long, Task> store = new HashMap<>();
-    private static long sequence = 0L;
+    @PersistenceContext
+    EntityManager em;
 
     /**
      * 저장
      */
-    public void save(Long memberId, String contents, Boolean isChecked) {
-        Task task = new Task(memberId, contents, isChecked);
-        task.setTaskId(sequence++);
-        store.put(task.getTaskId(), task);
+    public void save(Task task) {
+        em.persist(task);
     }
 
     /**
      * 수정
      */
-    public void edit(Long taskId, String updateContents, Boolean isChecked) {
+    public void edit(Long taskId, String updateContents) {
         Task findTask = findById(taskId);
         findTask.setContents(updateContents);
-        findTask.setIsChecked(isChecked);
     }
 
     /**
      * 회원이 쓴 투두리스트 전체 조회
      */
-    public List<Task> findUserTaskAll(Long memberId) {
-        Stream<Task> taskStream = store.values().stream().filter(task -> task.getUserId().equals(memberId));
-        return taskStream.collect(Collectors.toList());
+    public List<Task> findMemberTaskAll(Long memberId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+        Root<Task> t = cq.from(Task.class);
+
+        Predicate idEqual = cb.equal(t.get("member").get("id"), memberId);
+        javax.persistence.criteria.Order idDesc = cb.asc(t.get("id"));
+
+        cq.select(t).where(idEqual).orderBy(idDesc);
+
+        List<Task> resultList = em.createQuery(cq).getResultList();
+        return resultList;
     }
 
     public Task findById(Long taskId) {
-        return store.get(taskId);
+        return em.find(Task.class, taskId);
     }
 
-    public void deleteById(Long taskId) {
-        //예외처리 나중에 할예쩡
-        store.remove(taskId);
-    }
+//    public void deleteById(Long taskId) {
+//        //예외처리 나중에 할예쩡
+//        store.remove(taskId);
+//    }
 }

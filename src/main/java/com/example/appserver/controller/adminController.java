@@ -1,7 +1,7 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.user.User;
-import com.example.appserver.user.UserService;
+import com.example.appserver.user.Member;
+import com.example.appserver.user.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class adminController {
 
-    private final UserService userService;
+    private final MemberService userService;
 
 //    @GetMapping("user/admin")
 //    public String adminPage(){
@@ -24,7 +24,7 @@ public class adminController {
 
     @GetMapping("/users")
     public String list(Model model) {
-        List<User> users = userService.findUsers();
+        List<Member> users = userService.findMembers();
         model.addAttribute("users", users);
         return "user/userList";
     }
