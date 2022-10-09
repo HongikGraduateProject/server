@@ -1,5 +1,7 @@
-package com.example.appserver.user;
+package com.example.appserver.api;
 
+import com.example.appserver.user.Member;
+import com.example.appserver.user.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class MemberController {
-
+public class MemberApiController {
     /**
      * 실무에서는 절대로 entity를 외부에 노출하거나 파라미터로 받으면 안된다
      * api는 요청, 응답 모두 DTO를 사용해야 한다
@@ -145,5 +146,4 @@ public class MemberController {
 //        userMap.put("3",new User(3,"fff","bdd999","01054320000",
 //                25,"v","f","g"));
 //    }
-
 }

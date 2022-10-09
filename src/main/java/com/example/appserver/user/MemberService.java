@@ -1,5 +1,6 @@
 package com.example.appserver.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,19 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MemberService {
 
-    @Autowired
     private final MemberRepository memberRepository;
-
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     /**
      * 회원 가입
      */
+    @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
@@ -54,6 +52,7 @@ public class MemberService {
 //        memberRepository.deleteMember(id);
 //    }
 
+    @Transactional
     public void update(Long id, String username, String password) {
         Member user = memberRepository.findById(id);
         user.setUsername(username);
