@@ -8,17 +8,13 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-@Getter @Setter
 @Data
 public class User {
 
     private Long id;
 
-    @NotEmpty
     private String username;
-    @NotEmpty
     private String email;
-    @NotEmpty
     private String password;
 
     private String nickName;

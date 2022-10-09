@@ -18,9 +18,10 @@ public class UserService {
     /**
      * 회원 가입
      */
-    public User join(User user) {
+    public Long join(User user) {
         validateDuplicateMember(user);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return user.getId();
     }
 
     /**
@@ -45,5 +46,11 @@ public class UserService {
 
     public void removeUser(Long id){
         userRepository.deleteUser(id);
+    }
+
+    public void update(Long id, String username, String password) {
+        User user = userRepository.findById(id);
+        user.setUsername(username);
+        user.setPassword(password);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 @Slf4j
@@ -29,6 +30,11 @@ public class LoginController {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "fail";
         }
+
+        //로그인 성공 처리
+
+        Cookie idCookie = new Cookie("userId", String.valueOf(loginUser.getId()));
+
         return "success";
     }
 }
