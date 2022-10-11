@@ -2,14 +2,17 @@ package com.example.appserver.api;
 
 import com.example.appserver.domain.Task;
 import com.example.appserver.service.TaskService;
+import com.example.appserver.user.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -18,41 +21,64 @@ public class TaskApiController {
     TaskService taskService;
 
     //투두 조회
-    //taskId를 유저별로 만들어지게 해야할듯 지금은 전체로 번호가 매겨진당..
-    //근데 유저별로 하려면 유저별로 각 task repository를 가져야함(?!!!) 생각해보기....
     @GetMapping("/api/tasks/{memberId}/{taskId}")
-    public Task findTask(@PathVariable Long memberId, @PathVariable Long taskId) {
-        return taskService.findOne(taskId);
+    public TaskDto findTask(@PathVariable Long memberId, @PathVariable Long taskId) {
+        Task task = taskService.findOne(taskId);
+        return new TaskDto(task.getId(), task.getContents());
     }
 
     //유저가 쓴 전체 투두 조회
     @GetMapping("/api/tasks/{memberId}")
-    public List<Task> findUserTask(@PathVariable Long memberId) {
-        return taskService.findMemberTasks(memberId);
+    public Result findUserTask(@PathVariable Long memberId) {
+        List<Task> memberTasks = taskService.findMemberTasks(memberId);
+        List<TaskDto> collect = memberTasks.stream()
+                .map(t -> new TaskDto((t.getId()), t.getContents()))
+                .collect(Collectors.toList());
+        return new Result<>(collect);
     }
 
-    //투두 등록
+    /**
+     * 투두 등록
+     */
+
     @PostMapping("/api/tasks/{memberId}")
-    public void saveTask(@PathVariable Long memberId, @RequestBody Task taskData) {
-        taskService.saveTask(memberId, taskData.getContents());
+    public CreateTaskResponse saveTask(@PathVariable Long memberId, @RequestBody @Valid CreateTaskRequest request) {
+        Long taskId = taskService.saveTask(memberId, request.getContents());
+        return new CreateTaskResponse(taskId, taskService.findOne(taskId).getContents());
     }
 
-    //투두 수정
-    @PatchMapping("/api/tasks/{userId}/{taskId}")
-    public void editTask(@PathVariable Long taskId, @RequestBody Task taskData) {
-        taskService.editTask(taskId, taskData.getContents());
+    /**
+     * 투두 수정
+     */
+    @PutMapping("/api/tasks/{memberId}/{taskId}")
+    public UpdateTaskResponse updateUser(@PathVariable Long taskId, @RequestBody @Valid UpdateTaskRequest request) {
+        Long id = taskService.editTask(taskId, request.getContents());
+        return new UpdateTaskResponse(id, taskService.findOne(taskId).getContents());
     }
 
     //투두 삭제 (예외처리 꼭 추가필요)
-//    @DeleteMapping("/{userId}/{taskId}")
-//    public void deleteTask(@PathVariable Long taskId) {
-//        taskRepository.deleteById(taskId);
-//    }
+    @DeleteMapping("/api/tasks/{userId}/{taskId}")
+    public void deleteTask(@PathVariable Long taskId) {
+        taskService.removeTask(taskId);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class TaskDto {
+        //일단 고객의 이름과 이메일만 반환하도록 함
+        private Long taskId;
+        private String contents;
+    }
+
 
     @Data
     static class CreateTaskRequest {
-        @NotEmpty
-        private Long userId;
         @NotEmpty
         private String contents;
     }
@@ -70,7 +96,7 @@ public class TaskApiController {
 
     @Data
     static class UpdateTaskRequest {
-        private Long taskId;
+        @NotEmpty
         private String contents;
     }
 
@@ -78,6 +104,7 @@ public class TaskApiController {
     @AllArgsConstructor
     static class UpdateTaskResponse {
         private Long taskId;
+        private String contents;
     }
 
 }

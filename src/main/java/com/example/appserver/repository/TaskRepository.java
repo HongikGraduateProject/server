@@ -30,6 +30,13 @@ public class TaskRepository {
     }
 
     /**
+     * 삭제
+     */
+    public void removeTask(Task task) {
+        em.remove(task);
+    }
+
+    /**
      * 회원이 쓴 투두리스트 전체 조회
      */
     public List<Task> findMemberTaskAll(Long memberId) {

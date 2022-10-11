@@ -7,6 +7,7 @@ import com.example.appserver.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 
@@ -35,6 +36,14 @@ public class TaskService {
         Task task = taskRepository.findById(taskId);
         task.setContents(contents);
         return task.getId();
+    }
+
+    /**
+     * 투두 삭제
+     */
+    public void removeTask(Long taskId) {
+        Task task = taskRepository.findById(taskId);
+        taskRepository.removeTask(task);
     }
 
     /**
