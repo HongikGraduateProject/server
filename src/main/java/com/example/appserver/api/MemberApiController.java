@@ -1,5 +1,6 @@
 package com.example.appserver.api;
 
+import com.example.appserver.domain.LoginForm;
 import com.example.appserver.user.Member;
 import com.example.appserver.user.MemberService;
 import lombok.AllArgsConstructor;
@@ -145,5 +146,14 @@ public class MemberApiController {
 //                20,"x","f","g"));
 //        userMap.put("3",new User(3,"fff","bdd999","01054320000",
 //                25,"v","f","g"));
+//    }
+
+//    @PostMapping("/api/login")
+//    public String login(@RequestBody @Valid LoginForm form) {
+//        log.info("user email = {}", form.getEmail());
+//        User member = userRepository.findByUserEmail(user.get("email"))
+//                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+//
+//        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
 //    }
 }
