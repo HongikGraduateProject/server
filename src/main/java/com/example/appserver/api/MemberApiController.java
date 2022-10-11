@@ -1,7 +1,7 @@
 package com.example.appserver.api;
 
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberService;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
