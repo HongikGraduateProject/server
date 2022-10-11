@@ -1,10 +1,9 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.user.MemoryMemberRepository;
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberRepository;
+import com.example.appserver.member.MemoryMemberRepository;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

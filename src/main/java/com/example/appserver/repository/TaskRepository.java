@@ -1,17 +1,12 @@
 package com.example.appserver.repository;
 
-import antlr.StringUtils;
 import com.example.appserver.domain.Task;
-import com.example.appserver.user.Member;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 public class TaskRepository {

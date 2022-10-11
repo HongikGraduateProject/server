@@ -2,9 +2,8 @@ package com.example.appserver.controller;
 
 import com.example.appserver.domain.LoginForm;
 import com.example.appserver.service.LoginService;
-import com.example.appserver.user.Member;
+import com.example.appserver.member.Member;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

@@ -1,7 +1,7 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberService;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

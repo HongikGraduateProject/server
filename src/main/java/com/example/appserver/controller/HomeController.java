@@ -1,12 +1,11 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberRepository;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -26,4 +25,5 @@ public class HomeController {
         model.addAttribute("member", loginMember);
         return "loginHome";
     }
+
 }

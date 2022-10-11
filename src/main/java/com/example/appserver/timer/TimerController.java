@@ -1,7 +1,7 @@
 package com.example.appserver.timer;
 
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberService;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

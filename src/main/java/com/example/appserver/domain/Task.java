@@ -1,7 +1,6 @@
 package com.example.appserver.domain;
 
-import com.example.appserver.user.Member;
-import lombok.Generated;
+import com.example.appserver.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 

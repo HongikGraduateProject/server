@@ -1,18 +1,14 @@
 package com.example.appserver.controller;
 
 import com.example.appserver.domain.Task;
-import com.example.appserver.repository.TaskRepository;
 import com.example.appserver.service.TaskService;
-import com.example.appserver.user.Member;
+import com.example.appserver.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;

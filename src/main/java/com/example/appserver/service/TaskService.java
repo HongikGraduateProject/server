@@ -2,8 +2,8 @@ package com.example.appserver.service;
 
 import com.example.appserver.domain.Task;
 import com.example.appserver.repository.TaskRepository;
-import com.example.appserver.user.Member;
-import com.example.appserver.user.MemberRepository;
+import com.example.appserver.member.Member;
+import com.example.appserver.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

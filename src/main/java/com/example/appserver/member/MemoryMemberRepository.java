@@ -1,4 +1,4 @@
-package com.example.appserver.user;
+package com.example.appserver.member;
 
 import org.springframework.stereotype.Repository;
 

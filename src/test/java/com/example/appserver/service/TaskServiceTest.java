@@ -2,7 +2,7 @@ package com.example.appserver.service;
 
 import com.example.appserver.domain.Task;
 import com.example.appserver.repository.TaskRepository;
-import com.example.appserver.user.Member;
+import com.example.appserver.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
