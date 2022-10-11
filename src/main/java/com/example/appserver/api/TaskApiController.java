@@ -2,7 +2,6 @@ package com.example.appserver.api;
 
 import com.example.appserver.domain.Task;
 import com.example.appserver.service.TaskService;
-import com.example.appserver.user.Member;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
