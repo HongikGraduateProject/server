@@ -41,7 +41,7 @@ public class LoginController {
         //로그인 성공 처리
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @PostMapping("/logout")
@@ -50,6 +50,6 @@ public class LoginController {
         if (session!=null){
             session.invalidate();;
         }
-        return "redirect:/";
+        return "redirect:/main";
     }
 }

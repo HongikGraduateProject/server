@@ -4,6 +4,7 @@ import com.example.appserver.domain.Task;
 import com.example.appserver.timer.Timer;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,7 +39,8 @@ public class Member {
     @JoinColumn(name="MEMBER_ID")
     private List <Task> tasks = new ArrayList<Task>();
 
-    private String role; // 일반 유저, 관리자 구분
+    @Enumerated(EnumType.STRING)
+    private Role role; // 일반 유저, 관리자 구분
     private LocalDateTime createDate; // 가입 날짜
 
     public Member() {
@@ -46,7 +48,7 @@ public class Member {
 
     public Member(Long id, String username, String password, String nickName, String email, String phoneNumber,
                   int age, String job, String goal, Timer timer,
-                  int gold, String role, LocalDateTime createDate) {
+                  int gold, Role role, LocalDateTime createDate) {
         this.id = id;
         this.username = username;
         this.password = password;

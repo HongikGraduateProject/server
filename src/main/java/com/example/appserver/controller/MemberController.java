@@ -2,6 +2,7 @@ package com.example.appserver.controller;
 
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberService;
+import com.example.appserver.member.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class MemberController {
         member.setEmail(form.getEmail());
         member.setUsername(form.getUsername());
         member.setPassword(form.getPassword());
+        member.setRole(Role.ROLE_USER);
 
         try {
             memberService.join(member);
@@ -45,7 +47,7 @@ public class MemberController {
             result.addError(new FieldError("memberForm", "email", e.getMessage()));
             return "members/createMemberForm";
         }
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("/members")

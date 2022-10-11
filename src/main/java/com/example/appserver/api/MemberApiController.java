@@ -2,6 +2,7 @@ package com.example.appserver.api;
 
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberService;
+import com.example.appserver.member.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -85,6 +86,7 @@ public class MemberApiController {
         member.setUsername(request.getUsername());
         member.setEmail(request.getEmail());
         member.setPassword(request.getPassword());
+        member.setRole(Role.ROLE_USER);
         Long id = memberService.join(member);
         return new CreateMemberResponse(id, member.getUsername(),member.getEmail());
     }

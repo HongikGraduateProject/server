@@ -70,11 +70,9 @@ public class TaskApiController {
     @Data
     @AllArgsConstructor
     static class TaskDto {
-        //일단 고객의 이름과 이메일만 반환하도록 함
         private Long taskId;
         private String contents;
     }
-
 
     @Data
     static class CreateTaskRequest {

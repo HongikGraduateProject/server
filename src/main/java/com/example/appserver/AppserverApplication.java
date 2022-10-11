@@ -10,4 +10,5 @@ public class AppserverApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AppserverApplication.class, args);
 	}
+
 }
