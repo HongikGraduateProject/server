@@ -35,11 +35,12 @@ public class MemberController {
             return "members/createMemberForm";
         }
 
-        Member member = new Member();
-        member.setEmail(form.getEmail());
-        member.setUsername(form.getUsername());
-        member.setPassword(form.getPassword());
-        member.setRole(Role.ROLE_USER);
+        Member member = Member.builder()
+                .username(form.getUsername())
+                .email(form.getEmail())
+                .password(form.getPassword())
+                .role(Role.USER)
+                .build();
 
         try {
             memberService.join(member);

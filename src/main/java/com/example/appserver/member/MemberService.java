@@ -1,13 +1,14 @@
 package com.example.appserver.member;
 
+import com.example.appserver.domain.Tasks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberService {
 
@@ -19,18 +20,39 @@ public class MemberService {
     @Transactional
     public Long join(Member member) {
         validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getId();
+        return memberRepository.save(member).getId();
     }
 
     /**
      * 중복 회원 검증
      */
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
-        if (!findMembers.isEmpty()){
-            throw new IllegalStateException("이미 존재하는 이메일입니다.");
-        }
+        memberRepository.findByEmail(member.getEmail())
+                .ifPresent(m-> {
+                    throw new IllegalStateException("이미 존재하는 이메일입니다.");
+                });
+    }
+
+    /**
+     * 회원 수정
+     */
+    @Transactional
+    public Long update(Long id, String username) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다. id=" + id));
+        member.update(username);
+        return id;
+    }
+
+    /**
+     * 회원 삭제
+     */
+    @Transactional
+    public Long delete(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다. id=" + id));
+        memberRepository.delete(member);
+        return id;
     }
 
     /**
@@ -43,18 +65,9 @@ public class MemberService {
     /**
      * 개인 회원 조회
      */
-    public Member findOne(Long id){
-        return memberRepository.findById(id);
+    public Member findById(Long id){
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다. id=" + id));
     }
 
-//    public void removeMember(Long id){
-//        memberRepository.deleteMember(id);
-//    }
-
-    @Transactional
-    public void update(Long id, String username, String password) {
-        Member user = memberRepository.findById(id);
-        user.setUsername(username);
-        user.setPassword(password);
-    }
 }

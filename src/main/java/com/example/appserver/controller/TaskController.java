@@ -1,6 +1,6 @@
 package com.example.appserver.controller;
 
-import com.example.appserver.domain.Task;
+import com.example.appserver.domain.Tasks;
 import com.example.appserver.service.TaskService;
 import com.example.appserver.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +31,13 @@ public class TaskController {
         if (result.hasErrors()) {
             return "tasks/createTaskForm";
         }
-        taskService.saveTask(loginMember.getId(), form.getContents());
+        taskService.save(loginMember.getId(), form.getContents());
         return "redirect:/";
     }
 
     @GetMapping("/tasks/{id}")
     public String list(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, @PathVariable Long id, Model model) {
-        List<Task> tasklist = taskService.findMemberTasks(loginMember.getId());
+        List<Tasks> tasklist = taskService.findMemberTasks(loginMember.getId());
         model.addAttribute("tasks", tasklist);
         return "/tasks/taskList";
     }

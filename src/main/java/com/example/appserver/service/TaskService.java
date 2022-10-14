@@ -1,62 +1,79 @@
 package com.example.appserver.service;
 
-import com.example.appserver.domain.Task;
-import com.example.appserver.repository.TaskRepository;
+import com.example.appserver.domain.Tasks;
+import com.example.appserver.domain.TaskRepository;
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.FieldError;
 
 import java.util.List;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class TaskService {
-    @Autowired
-    MemberRepository memberRepository;
-    @Autowired
-    TaskRepository taskRepository;
+    private final MemberRepository memberRepository;
+    private final TaskRepository taskRepository;
 
     /**
      * 투두 생성과 저장
      */
-    public Long saveTask(Long memberId, String contents) {
-        Member member = memberRepository.findById(memberId);
-        Task task = Task.createTask(member, contents);
-        taskRepository.save(task);
-        return task.getId();
+    @Transactional
+    public Long save(Long memberId, String contents) {
+        Member member = memberRepository.findById(memberId).get();
+        Tasks task = Tasks.builder()
+                .member(member)
+                .contents(contents)
+                .build();
+        return taskRepository.save(task).getId();
     }
 
     /**
      * 투두 수정
      */
-    public Long editTask(Long taskId, String contents) {
-        Task task = taskRepository.findById(taskId);
-        task.setContents(contents);
-        return task.getId();
-    }
-
-    /**
-     * 투두 삭제
-     */
-    public void removeTask(Long taskId) {
-        Task task = taskRepository.findById(taskId);
-        taskRepository.removeTask(task);
-    }
-
-    /**
-     * 전체 회원 조회
-     */
-    public List<Task> findMemberTasks(Long memberId) {
-        return taskRepository.findMemberTaskAll(memberId);
+    @Transactional
+    public Long update(Long taskId, String contents) {
+        Tasks task = taskRepository.findById(taskId)
+                        .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id=" + taskId));
+        task.update(contents);
+        return taskId;
     }
 
     /**
      * 투두 아이디로 조회
      */
-    public Task findOne(Long taskId){
-        return taskRepository.findById(taskId);
+    @Transactional(readOnly = true)
+    public Tasks findById(Long taskId) {
+        return taskRepository.findById(taskId)
+                .orElseThrow(()-> new IllegalArgumentException("해당 게시글이 없습니다. id=" + taskId));
     }
+
+    /**
+     * 투두 삭제
+     */
+    @Transactional
+    public void delete(Long taskId) {
+        Tasks task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + taskId));
+        taskRepository.delete(task);
+    }
+
+    /**
+     * 회원이 쓴 전체 투두리스트 조회
+     */
+    @Transactional(readOnly = true)
+    public List<Tasks> findMemberTasks(Long memberId) {
+        return taskRepository.findByMember_Id(memberId);
+    }
+
+    /**
+     * 전체 투두리스트 조회
+     */
+    @Transactional(readOnly = true)
+    public List<Tasks> findAllTasks() {
+        return taskRepository.findAllTasks();
+    }
+
 }

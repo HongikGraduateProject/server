@@ -25,10 +25,11 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
-//    @DeleteMapping("/members/{id}")
-//    public void deleteMember(@PathVariable("id") Long id) {
-//        memberService.removeMember(id);
-//    }
+    @DeleteMapping("/members/{id}")
+    public Long deleteMember(@PathVariable("id") Long id) {
+        memberService.delete(id);
+        return id;
+    }
 
     /**
      * 회원 조회
@@ -42,10 +43,10 @@ public class MemberApiController {
         return new Result<>(collect);
     }
 
-    @GetMapping("/api/user/{id}")
+    @GetMapping("/api/members/{id}")
     public MemberInfoResponse getUser(@PathVariable("id") Long id) {
-        Member user = memberService.findOne(id);
-        return new MemberInfoResponse(user.getId(), user.getUsername(), user.getEmail());
+        Member member = memberService.findById(id);
+        return new MemberInfoResponse(member.getId(), member.getUsername(), member.getEmail());
     }
 
     @Data
@@ -82,11 +83,12 @@ public class MemberApiController {
 
     @PostMapping("/api/members")
     public CreateMemberResponse joinMember(@RequestBody @Valid CreateMemberRequest request) {
-        Member member = new Member();
-        member.setUsername(request.getUsername());
-        member.setEmail(request.getEmail());
-        member.setPassword(request.getPassword());
-        member.setRole(Role.ROLE_USER);
+        Member member = Member.builder()
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(Role.USER)
+                .build();
         Long id = memberService.join(member);
         return new CreateMemberResponse(id, member.getUsername(),member.getEmail());
     }
@@ -94,10 +96,10 @@ public class MemberApiController {
     /**
      * 회원 수정
      */
-    @PutMapping("/api/user/{id}")
+    @PutMapping("/api/members/{id}")
     public UpdateMemberResponse updateUser(@PathVariable("id") Long id, @RequestBody @Valid UpdateMemberRequest request) {
-        memberService.update(id, request.getUsername(), request.getPassword());
-        Member findUser = memberService.findOne(id);
+        //memberService.update(id, request.getUsername(), request.getPassword());
+        Member findUser = memberService.findById(id);
         return new UpdateMemberResponse(id, findUser.getUsername(), findUser.getEmail());
     }
 
@@ -137,15 +139,4 @@ public class MemberApiController {
         private String username;
         private String email;
     }
-
-    //    @PostConstruct
-//    public void init(){ // 테스트용 데이터
-//        userMap=new HashMap<String, User>();
-//        userMap.put("1",new User(1,"abc","b12345","01012341234",
-//                17,"e","f","g"));
-//        userMap.put("2",new User(2,"cde","b25555","01011111111",
-//                20,"x","f","g"));
-//        userMap.put("3",new User(3,"fff","bdd999","01054320000",
-//                25,"v","f","g"));
-//    }
 }

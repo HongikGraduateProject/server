@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class TimerController {
-    private final MemberService userService;
+    private final MemberService memberService;
 
     @GetMapping("/timer/on/{id}") // 유저의 타이머 on
     public void timerOn(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         if(status==false) {
-            Member user=userService.findOne(id);
+            Member user=memberService.findById(id);
             user.getTimer().timerOn();
             user.getTimer().setStatus(true);
             log.info("id={},status={}",user.getTimer().getId(),user.getTimer().getStatus());
@@ -27,7 +27,7 @@ public class TimerController {
     @GetMapping("/timer/off/{id}") // 유저의 타이머 off
     public void timerOff(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         if(status==true) {
-            Member user=userService.findOne(id);
+            Member user=memberService.findById(id);
             int gold = user.getTimer().timerOff();
             user.setGold(gold);
             user.getTimer().setStatus(false);
@@ -36,7 +36,7 @@ public class TimerController {
     }
     @GetMapping("/timer/{id}") // 유저의 타이머 정보 조회
     public String getTimerInfo(@PathVariable("id") Long id){
-        Member user=userService.findOne(id);
+        Member user=memberService.findById(id);
         return user.getTimer().toString();
     }
 }

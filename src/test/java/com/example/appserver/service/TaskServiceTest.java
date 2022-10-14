@@ -1,7 +1,7 @@
 package com.example.appserver.service;
 
-import com.example.appserver.domain.Task;
-import com.example.appserver.repository.TaskRepository;
+import com.example.appserver.domain.Tasks;
+import com.example.appserver.domain.TaskRepository;
 import com.example.appserver.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,14 +31,14 @@ class TaskServiceTest {
         Member member = createMember();
         System.out.println(member.getId());
 
-        Long taskId1 = taskService.saveTask(member.getId(), "member1의 1번째 투두");
-        Long taskId2 = taskService.saveTask(member.getId(), "member1의 2번째 투두");
-        Long taskId3 = taskService.saveTask(member.getId(), "member1의 3번째 투두");
+        Long taskId1 = taskService.save(member.getId(), "member1의 1번째 투두");
+        Long taskId2 = taskService.save(member.getId(), "member1의 2번째 투두");
+        Long taskId3 = taskService.save(member.getId(), "member1의 3번째 투두");
 
-        Task task = taskRepository.findById(taskId1);
-        List<Task> memberTasks = taskService.findMemberTasks(member.getId());
+        Tasks task = taskRepository.findById(taskId1).get();
+        List<Tasks> memberTasks = taskService.findMemberTasks(member.getId());
 
-        for (Task tasks:memberTasks){
+        for (Tasks tasks:memberTasks){
             System.out.println(tasks.getId() + "컨텐츠:" + tasks.getContents());
         }
 
@@ -46,8 +46,10 @@ class TaskServiceTest {
     }
 
     private Member createMember() {
-        Member member1 = new Member();
-        member1.setEmail("member1@gmail.com");
+        Member member1 = Member.builder()
+                .username("member1")
+                .email("member1@gmail.com")
+                .build();
         em.persist(member1);
         return member1;
     }
