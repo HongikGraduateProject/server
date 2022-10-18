@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface GroupRepository {
     void save(Group group);
-    void update(Long groupId, Group updateParam);
+    void update(Long groupId, GroupUpdateDto updateParam);
     Optional<Group> findById(Long id);
     List<Group> findAll(GroupSearchCond itemSearch);
     void delete(@Param("id") Long id);
