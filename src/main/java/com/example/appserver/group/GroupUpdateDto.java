@@ -1,23 +1,21 @@
 package com.example.appserver.group;
 
 import com.example.appserver.member.Member;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
-    private Long id;
-
+@Data
+public class GroupUpdateDto {
     private String name;
     private List<Member> members = new ArrayList<Member>();
 
-    public Group(){
+    public GroupUpdateDto(){
 
     }
-    public Group(Long id, String name,List<Member> members) {
-        this.id = id;
+    public GroupUpdateDto(Long id, String name) {
         this.name = name;
         this.members=members;
     }
-
 }

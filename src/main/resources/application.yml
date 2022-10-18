@@ -18,6 +18,11 @@ logging:
   level:
     org.hibernate.SQL: debug
 
+mybatis:
+  type-aliases-package: com.example.appserver.group
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mybatis/mapper/**/*.xml
 
 #spring.thymeleaf.prefix=classpath:templates/
 #spring.thymeleaf.suffix=.html
