@@ -1,0 +1,29 @@
+package com.example.appserver.group;
+
+import com.example.appserver.member.Member;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+public class UserGroup {
+    private Long id;
+
+    private String groupName;
+    private Integer numOfMember;
+    private List<Member> members = new ArrayList<Member>();
+
+
+    public UserGroup(){
+
+    }
+    public UserGroup(String groupName, List<Member> members) {
+        this.groupName = groupName;
+        this.members=members;
+    }
+
+    public void setNumOfMember(List<Member> members) {
+        this.numOfMember = members.size();
+    }
+}

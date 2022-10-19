@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @RequiredArgsConstructor
 class UserControllerTest {
-
-    private final MemberRepository memberRepository;
-
-    MemberService userService=new MemberService(memberRepository);
+//
+//    private final MemberRepository memberRepository;
+//
+//    MemberService userService=new MemberService(memberRepository);
 
     @Test
     void test(){
