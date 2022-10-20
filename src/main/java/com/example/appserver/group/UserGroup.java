@@ -3,16 +3,24 @@ package com.example.appserver.group;
 import com.example.appserver.member.Member;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
 public class UserGroup {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="group_name",length = 20)
     private String groupName;
     private Integer numOfMember;
-    private List<Member> members = new ArrayList<Member>();
+
+    @OneToMany
+    @JoinColumn(name="GROUP_ID")
+    private List<Member> members = new ArrayList<>();
 
 
     public UserGroup(){
