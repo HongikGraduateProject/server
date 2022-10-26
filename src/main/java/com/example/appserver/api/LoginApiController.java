@@ -2,6 +2,9 @@ package com.example.appserver.api;
 
 import com.example.appserver.login.JwtTokenProvider;
 import com.example.appserver.member.Member;
+import com.example.appserver.oauth.GetSocialOAuthRes;
+import com.example.appserver.oauth.OauthService;
+import com.example.appserver.oauth.SocialType;
 import com.example.appserver.service.LoginService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -21,6 +23,7 @@ public class LoginApiController {
 
     private final LoginService loginService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final OauthService oauthService;
 
     @PostMapping("/api/login")
     public SuccessResult<LoginResponse> loginApi(@RequestBody LoginRequest request) {
@@ -37,6 +40,25 @@ public class LoginApiController {
         loginResponse.setUsername(loginMember.getUsername());
 
         return new SuccessResult<>(jwtTokenProvider.createToken(request.getEmail()), loginResponse);
+    }
+
+    @GetMapping("/api/login/auth/{socialLoginType}")
+    public void socialLoginRedirect(@PathVariable(name="socialLoginType") String SocialLoginPath) throws IOException {
+        log.info("{}", SocialLoginPath);
+        SocialType socialType = SocialType.valueOf(SocialLoginPath.toUpperCase());
+        oauthService.request(socialType);
+    }
+
+    @GetMapping("/api/login/auth/{socialLoginType}/callback")
+    public SuccessResult<SocialResponse> callback(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam String code) throws IOException {
+        log.info("code = {}", code);
+        SocialType socialType = SocialType.valueOf(SocialLoginPath.toUpperCase());
+        GetSocialOAuthRes getSocialOAuthRes = oauthService.oAuthLogin(socialType, code);
+        SocialResponse socialResponse = new SocialResponse();
+        socialResponse.setEmail(getSocialOAuthRes.getEmail());
+        socialResponse.setUsername(getSocialOAuthRes.getUsername());
+        log.info(getSocialOAuthRes.getEmail());
+        return new SuccessResult<>(getSocialOAuthRes.getJwtToken(), socialResponse);
     }
 
     @Data
@@ -68,6 +90,12 @@ public class LoginApiController {
         private Long id;
         private String username;
         private String email;
+    }
+
+    @Data
+    static class SocialResponse {
+        private String email;
+        private String username;
     }
 
     @GetMapping("/hihi")
