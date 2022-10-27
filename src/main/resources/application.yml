@@ -14,22 +14,9 @@ spring:
         formate_sql: true
         default_batch_fetch_size: 1000 #최적화 옵션
 
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            url: https://accounts.google.com/o/oauth2/v2/auth
-            client-id: 392130591847-s96rig57ea8ub5of158r775dlrt7oinf.apps.googleusercontent.com
-            client-secret: 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
-            callback-url: http://localhost:8080/api/login/auth/google/callback
-            scope: https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
 logging:
   level:
     org.hibernate.SQL: debug
-
-
-
 
 #mybatis:
 #  type-aliases-package: com.example.appserver.group

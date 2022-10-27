@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TimerController {
     private final MemberService memberService;
 
+    @GetMapping("/timer/get")
+    public void getTest(){
+        log.info("success get");
+    }
+
     @GetMapping("/timer/on/{id}") // 유저의 타이머 on
     public void timerOn(@PathVariable("id") Long id,@RequestParam("status") boolean status) {
         if(status==false) {
