@@ -11,14 +11,8 @@ public class PostApiController {
 
     private final PostService postService;
 
-    @GetMapping("/api/v1/get")
-    public void getTest(){
-        log.info("success get");
-    }
-
     @PostMapping("/api/v1/post")
     public Long save(@RequestBody PostSaveRequestDto requestDto){
-        log.info("save success, {}, {}",requestDto.getTitle(),requestDto.getContent());
         return postService.save(requestDto);
     }
 
@@ -26,8 +20,14 @@ public class PostApiController {
     public Long update(@PathVariable Long id,@RequestBody PostUpdateRequestDto requestDto){
         return postService.update(id,requestDto);
     }
+
     @GetMapping("/api/v1/post/{id}")
     public PostResponseDto findById(@PathVariable Long id){
         return postService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/post/{id}")
+    public void remove(@PathVariable Long id){
+        postService.delete(id);
     }
 }
