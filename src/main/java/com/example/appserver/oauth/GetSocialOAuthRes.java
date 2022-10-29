@@ -10,8 +10,8 @@ import lombok.Setter;
 public class GetSocialOAuthRes {
     private String jwtToken;
     private Long id;
-    private String email;
     private String username;
+    private String email;
     private String accessToken;
     private String tokenType;
 }

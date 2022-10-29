@@ -50,15 +50,16 @@ public class LoginApiController {
     }
 
     @GetMapping("/api/login/auth/{socialLoginType}/callback")
-    public SuccessResult<SocialResponse> callback(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam String code) throws IOException {
+    public SuccessResult<LoginResponse> callback(@PathVariable(name="socialLoginType") String SocialLoginPath, @RequestParam String code) throws IOException {
         log.info("code = {}", code);
         SocialType socialType = SocialType.valueOf(SocialLoginPath.toUpperCase());
         GetSocialOAuthRes getSocialOAuthRes = oauthService.oAuthLogin(socialType, code);
-        SocialResponse socialResponse = new SocialResponse();
-        socialResponse.setEmail(getSocialOAuthRes.getEmail());
-        socialResponse.setUsername(getSocialOAuthRes.getUsername());
-        log.info(getSocialOAuthRes.getEmail());
-        return new SuccessResult<>(getSocialOAuthRes.getJwtToken(), socialResponse);
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setEmail(getSocialOAuthRes.getEmail());
+        loginResponse.setId(getSocialOAuthRes.getId());
+        loginResponse.setUsername(getSocialOAuthRes.getUsername());
+        log.info("email = {} id = {} name = {}", loginResponse.getEmail(), loginResponse.getId(), loginResponse.getUsername());
+        return new SuccessResult<>(getSocialOAuthRes.getJwtToken(), loginResponse);
     }
 
     @Data
@@ -74,7 +75,7 @@ public class LoginApiController {
             this.result = result = "success";
             this.expires_in = 30 * 60 * 1000L;
             this.token = token;
-            this.message = message = "로그인 성공";
+            this.message = "login success";
             this.user_info = user_info;
         }
     }
