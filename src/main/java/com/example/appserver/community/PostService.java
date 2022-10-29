@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -30,11 +32,19 @@ public class PostService {
                 new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         return new PostResponseDto(entity);
     }
+
+    public List<Post> findByTitle(String title){
+        return postRepository.findByTitle(title);
+    }
+    public List<Post> findByContent(String content){
+        return postRepository.findByContent(content);
+    }
+    public List<Post> findByAuthor(String author){
+        return postRepository.findByAuthor(author);
+    }
+
     public void delete(Long id){
         postRepository.delete(id);
     }
-    @DeleteMapping("/api/v1/post/{id}")
-    public void remove(@PathVariable Long id){
-        postRepository.delete(id);
-    }
+
 }
