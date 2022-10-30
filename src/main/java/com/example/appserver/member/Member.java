@@ -1,11 +1,13 @@
 package com.example.appserver.member;
 
 import com.example.appserver.domain.BaseTimeEntity;
+import com.example.appserver.group.UserGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -35,6 +37,10 @@ public class Member extends BaseTimeEntity {
 //    @OneToMany(mappedBy = "Tasks")
 //    private List <Tasks> tasks = new ArrayList<Tasks>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="GROUP_ID")
+    private UserGroup userGroup; //그룹
+
     private String goal;
 
     @Builder
@@ -51,6 +57,11 @@ public class Member extends BaseTimeEntity {
 
     public Member update(String username) {
         this.username = username;
+        return this;
+    }
+
+    public Member setTime(Long time) {
+        this.studyTime += time;
         return this;
     }
 

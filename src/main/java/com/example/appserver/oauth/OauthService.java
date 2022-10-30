@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OauthService {
     private final GoogleOauth googleOauth;
+    private final NaverOauth naverOauth;
     private final HttpServletResponse response;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
@@ -25,12 +26,16 @@ public class OauthService {
         switch (socialType){
             case GOOGLE:{
                 redirectURL = googleOauth.getOauthRedirectURL();
-            } break;
+                break;
+            }
+            case NAVER:{
+                redirectURL = naverOauth.getOauthRedirectURL();
+                break;
+            }
             default:{
                 throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
             }
         }
-
         response.sendRedirect(redirectURL);
     }
 
@@ -60,7 +65,31 @@ public class OauthService {
                     GetSocialOAuthRes getSocialOAuthRes = new GetSocialOAuthRes(jwtToken, id, googleUser.getName(), googleUser.getEmail(), oAuthToken.getAccess_token(), oAuthToken.getToken_type());
                     return getSocialOAuthRes;
                 }
-
+            }
+            case NAVER:{
+                ResponseEntity<String> accessTokenResponse = naverOauth.requestAccessToken(code);
+                NaverOAuthToken oAuthToken = naverOauth.getAccessToken(accessTokenResponse);
+                ResponseEntity<String> userInfoResponse = naverOauth.requestUserInfo(oAuthToken);
+                NaverUser naverUser = naverOauth.getUserInfo(userInfoResponse);
+                if (memberService.findByEmail(naverUser.getEmail()).isPresent()){
+                    Optional<Member> member = memberService.findByEmail(naverUser.getEmail());
+                    Long id = member.get().getId();
+                    String jwtToken = jwtTokenProvider.createToken(naverUser.getEmail());
+                    GetSocialOAuthRes getSocialOAuthRes = new GetSocialOAuthRes(jwtToken, id, naverUser.getNickname(), naverUser.getEmail(), oAuthToken.getAccess_token(), oAuthToken.getToken_type());
+                    return getSocialOAuthRes;
+                }
+                else {
+                    Member member = Member.builder()
+                            .username(naverUser.getNickname())
+                            .email(naverUser.getEmail())
+                            .password(null)
+                            .role(Role.USER)
+                            .build();
+                    Long id = memberService.join(member);
+                    String jwtToken = jwtTokenProvider.createToken(naverUser.getEmail());
+                    GetSocialOAuthRes getSocialOAuthRes = new GetSocialOAuthRes(jwtToken, id, naverUser.getNickname(), naverUser.getEmail(), oAuthToken.getAccess_token(), oAuthToken.getToken_type());
+                    return getSocialOAuthRes;
+                }
             }
             default:{
                 throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");

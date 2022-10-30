@@ -22,7 +22,6 @@ public class UserGroup {
     @JoinColumn(name="GROUP_ID")
     private List<Member> members = new ArrayList<>();
 
-
     public UserGroup(){
 
     }

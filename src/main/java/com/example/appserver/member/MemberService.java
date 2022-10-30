@@ -76,8 +76,14 @@ public class MemberService {
     /**
      * 타이머 저장
      */
-//    public Member saveTimer(Long id, Long time) {
-//        memberRepository.s
-//    }
+    public Member saveTimer(Long id, Long time) {
+        Member member = this.findById(id);
+        return member.setTime(time);
+    }
+
+    /**
+     * 레벨업
+     */
+
 
 }
