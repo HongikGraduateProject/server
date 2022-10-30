@@ -1,7 +1,8 @@
 package com.example.appserver.service;
 
-import com.example.appserver.domain.Tasks;
-import com.example.appserver.domain.TaskRepository;
+import com.example.appserver.task.TaskService;
+import com.example.appserver.task.Tasks;
+import com.example.appserver.task.TaskRepository;
 import com.example.appserver.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

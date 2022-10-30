@@ -1,4 +1,4 @@
-package com.example.appserver.api;
+package com.example.appserver.member;
 
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberService;

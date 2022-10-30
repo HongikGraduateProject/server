@@ -1,6 +1,5 @@
 package com.example.appserver.member;
 
-import com.example.appserver.domain.Tasks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,5 +72,12 @@ public class MemberService {
     public Optional<Member> findByEmail(String email) {
         return memberRepository.findByEmail(email);
     }
+
+    /**
+     * 타이머 저장
+     */
+//    public Member saveTimer(Long id, Long time) {
+//        memberRepository.s
+//    }
 
 }

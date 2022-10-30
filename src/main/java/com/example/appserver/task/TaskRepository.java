@@ -1,4 +1,4 @@
-package com.example.appserver.domain;
+package com.example.appserver.task;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

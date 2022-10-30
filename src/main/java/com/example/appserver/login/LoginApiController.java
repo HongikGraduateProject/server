@@ -1,17 +1,13 @@
-package com.example.appserver.api;
+package com.example.appserver.login;
 
-import com.example.appserver.login.JwtTokenProvider;
 import com.example.appserver.member.Member;
 import com.example.appserver.oauth.GetSocialOAuthRes;
 import com.example.appserver.oauth.OauthService;
 import com.example.appserver.oauth.SocialType;
-import com.example.appserver.service.LoginService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

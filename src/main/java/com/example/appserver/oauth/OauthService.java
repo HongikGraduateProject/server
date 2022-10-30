@@ -1,6 +1,5 @@
 package com.example.appserver.oauth;
 
-import com.example.appserver.api.MemberApiController;
 import com.example.appserver.login.JwtTokenProvider;
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberService;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;

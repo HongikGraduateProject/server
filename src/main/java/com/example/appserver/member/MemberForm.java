@@ -1,4 +1,4 @@
-package com.example.appserver.controller;
+package com.example.appserver.member;
 
 import lombok.Getter;
 import lombok.Setter;

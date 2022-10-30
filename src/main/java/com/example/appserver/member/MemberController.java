@@ -1,8 +1,5 @@
-package com.example.appserver.controller;
+package com.example.appserver.member;
 
-import com.example.appserver.member.Member;
-import com.example.appserver.member.MemberService;
-import com.example.appserver.member.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

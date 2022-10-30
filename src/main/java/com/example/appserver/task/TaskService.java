@@ -1,11 +1,10 @@
-package com.example.appserver.service;
+package com.example.appserver.task;
 
-import com.example.appserver.domain.Tasks;
-import com.example.appserver.domain.TaskRepository;
+import com.example.appserver.task.Tasks;
+import com.example.appserver.task.TaskRepository;
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

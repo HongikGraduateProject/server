@@ -1,16 +1,11 @@
 package com.example.appserver.member;
 
 import com.example.appserver.domain.BaseTimeEntity;
-import com.example.appserver.domain.Tasks;
-import com.example.appserver.timer.Timer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -32,16 +27,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role; // 일반 유저, 관리자 구분
 
-    @OneToOne
-    @JoinColumn(name="TIMER_ID")
-    private Timer timer;
-    private int gold;
+
+    private Long studyTime=0L;
+    private Integer level = 0;
+    private Integer gold = 0;
 
 //    @OneToMany(mappedBy = "Tasks")
 //    private List <Tasks> tasks = new ArrayList<Tasks>();
 
-    private String phoneNumber;
-    private int age;
     private String goal;
 
     @Builder
@@ -50,10 +43,6 @@ public class Member extends BaseTimeEntity {
         this.email = email;
         this.password = password;
         this.role = role;
-    }
-
-    public boolean timerStatus(){
-        return timer.getStatus();
     }
 
     public void setGold(int gold) {

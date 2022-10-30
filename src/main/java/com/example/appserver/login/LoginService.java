@@ -1,4 +1,4 @@
-package com.example.appserver.service;
+package com.example.appserver.login;
 
 import com.example.appserver.member.Member;
 import com.example.appserver.member.MemberRepository;

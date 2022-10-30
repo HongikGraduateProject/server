@@ -1,11 +1,13 @@
-package com.example.appserver.domain;
+package com.example.appserver.task;
 
+import com.example.appserver.domain.BaseTimeEntity;
 import com.example.appserver.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -23,12 +25,15 @@ public class Tasks extends BaseTimeEntity {
     @JoinColumn(name="MEMBER_ID")
     private Member member; //작성 회원
 
+    private Date date;
+
     //==생성 메소드==//
     @Builder
-    public Tasks(Member member, String contents) {
+    public Tasks(Member member, String contents, Date date) {
         this.member = member;
         this.contents = contents;
         this.isChecked = false;
+        this.date = date;
     }
 
     public void check() {
