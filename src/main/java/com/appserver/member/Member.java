@@ -2,12 +2,14 @@ package com.appserver.member;
 
 import com.appserver.domain.BaseTimeEntity;
 import com.appserver.group.UserGroup;
+import com.appserver.makegroup.MakeGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class Member extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,17 +32,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role; // 일반 유저, 관리자 구분
 
+    @OneToMany(mappedBy = "member")
+    private List<MakeGroup> makeGroupList=new ArrayList<>();
 
     private Long studyTime=0L;
     private Integer level = 0;
     private Integer gold = 0;
 
-//    @OneToMany(mappedBy = "Tasks")
-//    private List <Tasks> tasks = new ArrayList<Tasks>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="GROUP_ID")
-    private UserGroup userGroup; //그룹
 
     private String goal;
 
