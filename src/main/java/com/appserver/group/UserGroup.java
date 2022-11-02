@@ -20,7 +20,7 @@ public class UserGroup {
     private Integer numOfMember;
 
     @OneToMany
-    @JoinColumn(name="GROUP_ID")
+    @JoinColumn(name="group_id")
     private List<Member> members = new ArrayList<>();
 
     public UserGroup(){
