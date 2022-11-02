@@ -1,7 +1,6 @@
 package com.appserver.group;
 
 
-import com.appserver.makegroup.MakeGroup;
 import com.appserver.member.Member;
 import lombok.Data;
 
@@ -20,14 +19,16 @@ public class UserGroup {
     private String groupName;
     private Integer numOfMember;
 
-    @OneToMany(mappedBy = "userGroup")
-    private List<MakeGroup> makeGroupList=new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name="GROUP_ID")
+    private List<Member> members = new ArrayList<>();
 
     public UserGroup(){
 
     }
-    public UserGroup(String groupName) {
+    public UserGroup(String groupName, List<Member> members) {
         this.groupName = groupName;
+        this.members=members;
     }
 
     public void setNumOfMember(List<Member> members) {

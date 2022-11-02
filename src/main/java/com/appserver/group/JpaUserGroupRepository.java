@@ -1,5 +1,6 @@
 package com.appserver.group;
 
+import com.appserver.community.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +68,7 @@ public class JpaUserGroupRepository implements UserGroupRepository {
 
     @Override
     public void delete(Long id) {
-
+        UserGroup findPost=em.find(UserGroup.class,id);
+        em.remove(findPost);
     }
 }

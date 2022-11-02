@@ -17,6 +17,7 @@ public class Post {
     private String title;
 
     @Column(columnDefinition = "TEXT",nullable = false)
+    @Lob
     private String content;
 
     private String author;

@@ -2,15 +2,12 @@ package com.appserver.member;
 
 import com.appserver.domain.BaseTimeEntity;
 import com.appserver.group.UserGroup;
-import com.appserver.makegroup.MakeGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.ibatis.annotations.One;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -45,9 +42,6 @@ public class Member extends BaseTimeEntity {
     private UserGroup userGroup; //그룹
 
     private String goal;
-
-    @OneToMany(mappedBy = "member")
-    private List<MakeGroup> makeGroupList=new ArrayList<>();
 
     @Builder
     public Member(String username, String email, String password, Role role) {
