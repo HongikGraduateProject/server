@@ -1,8 +1,7 @@
 package com.appserver.member;
 
 import com.appserver.domain.BaseTimeEntity;
-import com.appserver.group.UserGroup;
-import com.appserver.makegroup.MakeGroup;
+import com.appserver.makegroup.MakingGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,13 +32,11 @@ public class Member extends BaseTimeEntity {
     private Role role; // 일반 유저, 관리자 구분
 
     @OneToMany(mappedBy = "member")
-    private List<MakeGroup> makeGroupList=new ArrayList<>();
+    private List<MakingGroup> makingGroupList =new ArrayList<>();
 
     private Long studyTime=0L;
     private Integer level = 0;
     private Integer gold = 0;
-
-
 
     private String goal;
 

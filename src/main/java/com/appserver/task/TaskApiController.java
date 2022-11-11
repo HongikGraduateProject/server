@@ -54,7 +54,7 @@ public class TaskApiController {
     }
 
     //투두 삭제 (예외처리 꼭 추가필요)
-    @DeleteMapping("/api/tasks/{userId}/{taskId}")
+    @DeleteMapping("/api/tasks/{memberId}/{taskId}")
     public Long deleteTask(@PathVariable Long taskId) {
         taskService.delete(taskId);
         return taskId;

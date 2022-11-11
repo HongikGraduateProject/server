@@ -13,10 +13,10 @@ import java.util.List;
 @Slf4j
 @Transactional
 @SpringBootTest
-class UserUserGroupRepositoryTest {
+class UserMemberGroupRepositoryTest {
 
     @Autowired
-    UserGroupRepository userGroupRepository;
+    MemberGroupRepository memberGroupRepository;
 
     @Test
     void test(){
@@ -31,10 +31,10 @@ class UserUserGroupRepositoryTest {
 
         log.info("{}",members.size());
 
-        UserGroup group=new UserGroup();
+        MemberGroup group=new MemberGroup();
         group.setGroupName("group1");
-        group.setMembers(members);
 
-        userGroupRepository.save(group);
+
+        memberGroupRepository.save(group);
     }
 }

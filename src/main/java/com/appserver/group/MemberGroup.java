@@ -1,9 +1,9 @@
 package com.appserver.group;
 
 
-import com.appserver.makegroup.MakeGroup;
+import com.appserver.makegroup.MakingGroup;
 import com.appserver.member.Member;
-import lombok.Data;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
-public class UserGroup {
+public class MemberGroup {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_group_id")
@@ -21,19 +21,18 @@ public class UserGroup {
 
     @Column(name="group_name",length = 20)
     private String groupName;
-    private Integer numOfMember;
+    private String groupTask;
 
-    @OneToMany(mappedBy = "userGroup")
-    private List<MakeGroup> makeGroupList=new ArrayList<>();
+    @OneToMany(mappedBy = "memberGroup")
+    private List<MakingGroup> makingGroupList =new ArrayList<>();
 
-    public UserGroup(){
+    public MemberGroup(){
 
     }
-    public UserGroup(String groupName, List<Member> members) {
+    @Builder
+    public MemberGroup(String groupName, String groupTask) {
         this.groupName = groupName;
+        this.groupTask=groupTask;
     }
 
-    public void setNumOfMember(List<Member> members) {
-        this.numOfMember = members.size();
-    }
 }

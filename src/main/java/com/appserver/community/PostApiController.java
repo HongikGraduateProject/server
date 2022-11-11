@@ -15,17 +15,17 @@ public class PostApiController {
 
     private final PostService postService;
 
-    @PostMapping("/api/v1/post")
+    @PostMapping("/api/post")
     public Long save(@RequestBody PostSaveRequestDto requestDto){
         return postService.save(requestDto);
     }
 
-    @PutMapping("/api/v1/post/{id}")
+    @PutMapping("/api/post/{id}")
     public Long update(@PathVariable Long id,@RequestBody PostUpdateRequestDto requestDto){
         return postService.update(id,requestDto);
     }
 
-    @GetMapping("/api/v1/post/{id}")
+    @GetMapping("/api/post/{id}")
     public PostResponseDto findById(@PathVariable Long id){
         return postService.findById(id);
     }
@@ -33,7 +33,7 @@ public class PostApiController {
 
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    @GetMapping("/api/v1/post")
+    @GetMapping("/api/post")
     public List<Post> findAll(@RequestParam(required = false) String title,
                                                               @RequestParam(required = false) String content,
                                                               @RequestParam(required = false) String author){
@@ -43,7 +43,7 @@ public class PostApiController {
         else if(author != null) result=postService.findByAuthor(author);
         return result;
     }
-    @DeleteMapping("/api/v1/post/{id}")
+    @DeleteMapping("/api/v1/{id}")
     public void remove(@PathVariable Long id){
         postService.delete(id);
     }

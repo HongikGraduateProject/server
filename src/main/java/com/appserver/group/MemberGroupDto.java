@@ -1,5 +1,6 @@
 package com.appserver.group;
 
+import com.appserver.community.Post;
 import com.appserver.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,17 +11,16 @@ import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
-public class UserGroupDto {
+public class MemberGroupDto {
     private String groupName;
-    private Integer numOfMember;
     private String groupTask;
 
-    private List<Member> members = new ArrayList<>();
-
-    public UserGroupDto(String groupName, Integer numOfMember, String groupTask, List<Member> members) {
+    public MemberGroupDto(String groupName, String groupTask) {
         this.groupName = groupName;
-        this.numOfMember = numOfMember;
         this.groupTask = groupTask;
-        this.members = members;
+    }
+
+    public MemberGroup toEntity(){
+        return MemberGroup.builder().groupName(groupName).groupTask(groupTask).build();
     }
 }

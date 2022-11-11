@@ -1,6 +1,5 @@
 package com.appserver.group;
 
-import com.appserver.community.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,37 +14,36 @@ import java.util.Optional;
 @Slf4j
 @Repository
 @Transactional
-public class JpaUserGroupRepository implements UserGroupRepository {
+public class JpaMemberGroupRepository implements MemberGroupRepository {
 
    private final EntityManager em;
 
-    public JpaUserGroupRepository(EntityManager em) {
+    public JpaMemberGroupRepository(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public UserGroup save(UserGroup userGroup) {
-        em.persist(userGroup);
-        return userGroup;
+    public MemberGroup save(MemberGroup memberGroup) {
+        em.persist(memberGroup);
+        return memberGroup;
     }
 
     @Override
-    public void update(Long groupId, UserGroupUpdateDto updateParam) {
-        UserGroup findGroup=em.find(UserGroup.class,groupId);
+    public void update(Long groupId, MemberGroupUpdateDto updateParam) {
+        MemberGroup findGroup=em.find(MemberGroup.class,groupId);
         findGroup.setGroupName(updateParam.getGroupName());
     }
 
     @Override
-    public Optional<UserGroup> findById(Long id) {
-        UserGroup group=em.find(UserGroup.class,id);
+    public Optional<MemberGroup> findById(Long id) {
+        MemberGroup group=em.find(MemberGroup.class,id);
         return Optional.ofNullable(group);
     }
 
     @Override
-    public List<UserGroup> findAll(UserGroupSearchCond cond) {
-        String jpql="select g from UserGroup g";
+    public List<MemberGroup> findAll(String groupName) {
+        String jpql="select g from MemberGroup g";
 
-        String groupName=cond.getGroupName();
 
         if (StringUtils.hasText(groupName)) {
             jpql += " where";
@@ -58,7 +56,7 @@ public class JpaUserGroupRepository implements UserGroupRepository {
         }
         log.info("jpql={}", jpql);
 
-        TypedQuery<UserGroup> query=em.createQuery(jpql, UserGroup.class);
+        TypedQuery<MemberGroup> query=em.createQuery(jpql, MemberGroup.class);
         if (StringUtils.hasText(groupName)) {
             query.setParameter("groupName", groupName);
         }
@@ -68,7 +66,7 @@ public class JpaUserGroupRepository implements UserGroupRepository {
 
     @Override
     public void delete(Long id) {
-        UserGroup findPost=em.find(UserGroup.class,id);
+        MemberGroup findPost=em.find(MemberGroup.class,id);
         em.remove(findPost);
     }
 }
