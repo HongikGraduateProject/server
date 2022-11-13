@@ -32,6 +32,7 @@ public class JpaMemberGroupRepository implements MemberGroupRepository {
     public void update(Long groupId, MemberGroupUpdateDto updateParam) {
         MemberGroup findGroup=em.find(MemberGroup.class,groupId);
         findGroup.setGroupName(updateParam.getGroupName());
+        findGroup.setGroupTask(updateParam.getGroupTask());
     }
 
     @Override
