@@ -20,13 +20,12 @@ public class MemberGroupApiController {
     public Long save(@RequestBody MemberGroupDto requestDto){
         return memberGroupService.save(requestDto);
     }
+
     @PutMapping("/api/group/{id}")
     public Long update(@PathVariable Long id,@RequestBody MemberGroupUpdateDto requestDto){
         return memberGroupService.update(id,requestDto);
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
     @GetMapping("/api/group/{id}")
     public MemberGroupResponseDto findById(@PathVariable Long id){
         return memberGroupService.findById(id);
@@ -40,20 +39,9 @@ public class MemberGroupApiController {
         result=memberGroupService.findAll(groupName);
         return result;
     }
-//    @ResponseStatus(HttpStatus.OK)
-//    @ResponseBody
-//    @GetMapping("/api/v1/post")
-//    public List<Post> findAll(@RequestParam(required = false) String title,
-//                              @RequestParam(required = false) String content,
-//                              @RequestParam(required = false) String author){
-//        List<Post> result=new ArrayList<>();
-//        if(title != null) result= postService.findByTitle(title);
-//        else if(content != null) result=postService.findByContent(content);
-//        else if(author != null) result=postService.findByAuthor(author);
-//        return result;
-//    }
-//    @DeleteMapping("/api/v1/post/{id}")
-//    public void remove(@PathVariable Long id){
-//        postService.delete(id);
-//    }
+
+    @DeleteMapping("/api/group/{id}")
+    public void remove(@PathVariable Long id){
+        memberGroupService.delete(id);
+    }
 }
