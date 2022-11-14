@@ -19,6 +19,7 @@ public class Post {
     @Column(columnDefinition = "TEXT",nullable = false)
     @Lob
     private String content;
+
     private String author;
 
     @Builder

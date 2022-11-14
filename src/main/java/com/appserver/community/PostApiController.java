@@ -20,7 +20,7 @@ public class PostApiController {
         return postService.save(requestDto);
     }
 
-    @PostMapping("/api/post/{id}")
+    @PutMapping("/api/post/{id}")
     public Long update(@PathVariable Long id,@RequestBody PostUpdateRequestDto requestDto){
         return postService.update(id,requestDto);
     }
@@ -43,7 +43,7 @@ public class PostApiController {
         else if(author != null) result=postService.findByAuthor(author);
         return result;
     }
-    @DeleteMapping("/api/post/{id}")
+    @DeleteMapping("/api/v1/{id}")
     public void remove(@PathVariable Long id){
         postService.delete(id);
     }

@@ -24,7 +24,7 @@ public class MemberGroupService {
     public Long update(Long id,MemberGroupUpdateDto requestDto){
         MemberGroup memberGroup=memberGroupRepository.findById(id).orElseThrow(()->
                 new IllegalArgumentException("해당 그룹이 없습니다. id="+id));
-        memberGroup.update(requestDto.getGroupName(),requestDto.getGroupTask());
+
         return id;
     }
 
